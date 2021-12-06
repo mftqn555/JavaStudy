@@ -1,19 +1,21 @@
 package vendingmachine;
 
+import java.util.Scanner;
+
 public class VendingMachine {
 
-    int priceBeverage1 = 700;
-    int priceBeverage2 = 1000;
-    int priceBeverage3 = 800;
-    int priceBeverage4 = 900;
+    int drinkPrice1 = 700;
+    int drinkPrice2 = 1000;
+    int drinkPrice3 = 800;
+    int drinkPrice4 = 900;
     int inputMoney;
     int price;
     int balance;
 
-    String nameBeverage1 = "콜라";
-    String nameBeverage2 = "오렌지";
-    String nameBeverage3 = "사이다";
-    String nameBeverage4 = "커피";
+    String drinkName1 = "콜라";
+    String drinkName2 = "오렌지";
+    String drinkName3 = "사이다";
+    String drinkName4 = "커피";
 
     public boolean run = true;
 
@@ -22,7 +24,7 @@ public class VendingMachine {
         System.out.println(message);
     }
 
-    public void displayOption(){
+    public void showOption(){
         log("===================================");
         log(" 1. 돈 넣기 | 2. 잔액 반환, 종료 " );
         log("====================================");
@@ -40,10 +42,10 @@ public class VendingMachine {
         }
     }
 
-    public void displayMenu(){
+    public void showMenu(){
         log("====================================");
-        log("1 "+nameBeverage1+"("+priceBeverage1+")   2 "+nameBeverage2+"("+priceBeverage2+")");
-        log("3 "+nameBeverage3+"("+priceBeverage3+")   4 "+nameBeverage4+"("+priceBeverage4+")");
+        log("1 "+drinkName1+"("+drinkPrice1+")   2 "+drinkName2+"("+drinkPrice2+")");
+        log("3 "+drinkName3+"("+drinkPrice3+")   4 "+drinkName4+"("+drinkPrice4+")");
         log("====================================");
         log("잔액: " + balance);
         log("돈을 투입하세요 >>");
@@ -52,16 +54,16 @@ public class VendingMachine {
     public void pushMenuButton(int buttonNum){
         switch (buttonNum){
             case 1:
-                price = priceBeverage1;
+                price = drinkPrice1;
                 break;
             case 2:
-                price = priceBeverage2;
+                price = drinkPrice2;
                 break;
             case 3:
-                price = priceBeverage3;
+                price = drinkPrice3;
                 break;
             case 4:
-                price = priceBeverage4;
+                price = drinkPrice4;
                 break;
         }
     }
@@ -71,14 +73,14 @@ public class VendingMachine {
             balance = inputMoney;
             log("잔액이 부족합니다.");
         } else {
-            if (price == priceBeverage1) {
-                log(nameBeverage1 + "가 나왔습니다");
-            } else if (price == priceBeverage2) {
-                log(nameBeverage2 + "가 나왔습니다");
-            } else if (price == priceBeverage3) {
-                log(nameBeverage3 + "가 나왔습니다");
-            } else if (price == priceBeverage4) {
-                log(nameBeverage4 + "가 나왔습니다");
+            if (price == drinkPrice1) {
+                log(drinkName1 + "가 나왔습니다");
+            } else if (price == drinkPrice2) {
+                log(drinkName2 + "가 나왔습니다");
+            } else if (price == drinkPrice3) {
+                log(drinkName3 + "가 나왔습니다");
+            } else if (price == drinkPrice4) {
+                log(drinkName4 + "가 나왔습니다");
             }
         }
     }
@@ -100,4 +102,31 @@ public class VendingMachine {
         log("10원 " + coin10 + "개 반환 되었습니다.");
 
     }
+
+    public void runVendingMachine(){
+        int buttonNum = 0;
+        Scanner scanner = new Scanner(System.in);
+        while(run) {
+            /* 옵션 보여주기, 옵션 선택 */
+            showOption();
+            selectOption(scanner.nextInt());
+
+            /* 메뉴 보여주기, 돈 투입 및 잔액 계산 */
+            showMenu();
+            inputMoney = scanner.nextInt();
+            balance += inputMoney;
+
+            /* 버튼 눌러서 원하는 음료 뽑기 */
+            log("잔액: " + balance);
+            log("숫자를 입력해 버튼을 누르세요");
+            buttonNum = scanner.nextInt();
+            pushMenuButton(buttonNum);
+            giveBeverage()
+
+            /* 잔액 계산 */;
+            calculateBalance();
+        }
+
+    }
+
 }
