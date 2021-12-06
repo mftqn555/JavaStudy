@@ -1,5 +1,7 @@
 package vendingmachine;
 
+import java.util.Scanner;
+
 public class VendingMachine {
 
     int priceBeverage1 = 700;
@@ -22,7 +24,7 @@ public class VendingMachine {
         System.out.println(message);
     }
 
-    public void displayOption(){
+    public void showOption(){
         log("===================================");
         log(" 1. 돈 넣기 | 2. 잔액 반환, 종료 " );
         log("====================================");
@@ -40,7 +42,7 @@ public class VendingMachine {
         }
     }
 
-    public void displayMenu(){
+    public void showMenu(){
         log("====================================");
         log("1 "+nameBeverage1+"("+priceBeverage1+")   2 "+nameBeverage2+"("+priceBeverage2+")");
         log("3 "+nameBeverage3+"("+priceBeverage3+")   4 "+nameBeverage4+"("+priceBeverage4+")");
@@ -100,4 +102,31 @@ public class VendingMachine {
         log("10원 " + coin10 + "개 반환 되었습니다.");
 
     }
+
+    public void runVendingMachine(){
+        int buttonNum = 0;
+        Scanner scanner = new Scanner(System.in);
+        while(run) {
+            /* 옵션 보여주기, 옵션 선택 */
+            showOption();
+            selectOption(scanner.nextInt());
+
+            /* 메뉴 보여주기, 돈 투입 및 잔액 계산 */
+            showMenu();
+            inputMoney = scanner.nextInt();
+            balance += inputMoney;
+
+            /* 버튼 눌러서 원하는 음료 뽑기 */
+            log("잔액: " + balance);
+            log("숫자를 입력해 버튼을 누르세요");
+            buttonNum = scanner.nextInt();
+            pushMenuButton(buttonNum);
+            giveBeverage()
+
+            /* 잔액 계산 */;
+            calculateBalance();
+        }
+
+    }
+
 }
