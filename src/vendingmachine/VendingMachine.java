@@ -11,6 +11,7 @@ public class VendingMachine {
     int inputMoney;
     int price;
     int balance;
+    int temp;
 
     String drinkName1 = "콜라";
     String drinkName2 = "오렌지";
@@ -70,7 +71,7 @@ public class VendingMachine {
 
     public void giveBeverage() {
         if(price > balance) {
-            balance = inputMoney;
+           // balance = inputMoney;
             log("잔액이 부족합니다.");
         } else {
             if (price == drinkPrice1) {
@@ -86,8 +87,8 @@ public class VendingMachine {
     }
 
     public void calculateBalance() {
-        balance = balance - price;
-        balance = balance < 0 ? inputMoney : balance;
+        temp = balance - price;
+        balance = temp < 0 ? balance : temp;
     }
 
     public void returnBalance() {
